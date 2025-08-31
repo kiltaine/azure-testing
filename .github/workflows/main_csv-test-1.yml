@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'  # cesta k tvému projektu, root repo
-  PYTHON_VERSION: '3.12'               # verze Pythonu, kterou používáš
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'  # root repo
+  PYTHON_VERSION: '3.12'
 
 jobs:
   build:
@@ -28,9 +28,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # ZIP jen se 3 soubory potřebnými pro funkci
+      # ZIP jen s potřebnými soubory
       - name: Zip artifact for deployment
-        run: zip -r release.zip function_app.py host.json requirements.txt
+        run: zip release.zip function_app.py host.json requirements.txt
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -48,15 +48,10 @@ jobs:
         with:
           name: python-app
 
-      - name: Unzip artifact for deployment
-        run: |
-          unzip release.zip
-          rm release.zip
-
       - name: Deploy to Azure Functions
         uses: Azure/functions-action@v1
         with:
           app-name: 'csv-test-1'
           slot-name: 'Production'
-          package: ./release.zip
+          package: release.zip
           publish-profile: ${{ secrets.my_secret }}
