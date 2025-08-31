@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # ZIP jen se soubory potřebnými pro funkci
+      # ZIP jen se soubory potřebnými pro funkci -
       - name: Zip artifact for deployment
         run: zip release.zip function_app.py host.json requirements.txt
 
