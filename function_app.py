@@ -4,7 +4,7 @@ from azure.storage.blob import BlobServiceClient
 import pandas as pd
 from datetime import datetime
 
-app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)  # MUSÍ být na top-level
+app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)  # MUSÍ být na top-level 1
 
 
 
