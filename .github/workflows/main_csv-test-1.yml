@@ -28,9 +28,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # ZIP pro deploy bez venv
+      # ZIP jen se 4 soubory potřebnými pro funkci
       - name: Zip artifact for deployment
-        run: zip -r release.zip . -x "venv/*"
+        run: zip release.zip function_app.py host.json local.settings.json requirements.txt
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -60,4 +60,3 @@ jobs:
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           publish-profile: ${{ secrets.my_secret }}
-
