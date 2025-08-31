@@ -35,7 +35,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: python-app
+          path: python-app.zip
           
 
   deploy:
