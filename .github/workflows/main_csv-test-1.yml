@@ -49,7 +49,7 @@ jobs:
           name: python-app
 
       - name: Unzip artifact for deployment
-        run:
+        run: |
           unzip release.zip
           rm release.zip
 
