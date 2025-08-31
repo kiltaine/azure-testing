@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # ZIP jen se 4 soubory potřebnými pro funkci
+      # ZIP jen se soubory potřebnými pro funkci
       - name: Zip artifact for deployment
         run: zip release.zip function_app.py host.json requirements.txt
 
@@ -47,11 +47,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: python-app
-
-      - name: Unzip artifact for deployment
-        run: |
-          unzip release.zip
-          rm release.zip
 
       - name: Deploy to Azure Functions
         uses: Azure/functions-action@v1
