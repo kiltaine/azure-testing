@@ -72,4 +72,5 @@ jobs:
           app-name: 'csv-test-1'
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_72DEBF077EA14D848801A34E0D24FE92 }}
+
+          publish-profile: ${{ secrets.my_secret }}
