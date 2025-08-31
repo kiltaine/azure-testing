@@ -30,7 +30,7 @@ jobs:
 
       # ZIP jen se 4 soubory potřebnými pro funkci
       - name: Zip artifact for deployment
-        run: zip release.zip function_app.py host.json local.settings.json requirements.txt
+        run: zip release.zip function_app.py host.json requirements.txt
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
