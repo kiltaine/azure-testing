@@ -1,4 +1,4 @@
-name: Build and deploy Python project to Azure Function App - csv-test-1
+name: Deploy Python Azure Function - csv-test-1
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'  # cesta k tvému projektu, root repo
-  PYTHON_VERSION: '3.12'               # verze Pythonu, kterou používáš
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'  # cesta k projektu, kořen repo
+  PYTHON_VERSION: '3.12'               # verze Pythonu
 
 jobs:
   build:
@@ -28,11 +28,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # ZIP jen se soubory potřebnými pro funkci
+      # ZIP jen s potřebnými soubory
       - name: Zip artifact for deployment
         run: zip release.zip function_app.py host.json requirements.txt
 
-      - name: Upload artifact for deployment job
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: python-app
@@ -43,7 +43,7 @@ jobs:
     needs: build
 
     steps:
-      - name: Download artifact from build job
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: python-app
@@ -51,7 +51,7 @@ jobs:
       - name: Deploy to Azure Functions
         uses: Azure/functions-action@v1
         with:
-            app-name: 'csv-test-1'
-            slot-name: 'Production'
-            package: release.zip
-            publish-profile: ${{ secrets.my_secret }}
+          app-name: 'csv-test-1'
+          slot-name: 'Production'
+          package: release.zip
+          publish-profile: ${{ secrets.my_secret }}
